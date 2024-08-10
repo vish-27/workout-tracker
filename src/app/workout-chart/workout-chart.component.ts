@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <h2>{{ user.name }}'s workout progress</h2>
-    <div class="chart">
+    <div> <canvas class="chart">
       <div *ngFor="let workout of user.workouts" class="bar" [style.height.px]="workout.minutes * 2">
         <span class="bar-label">{{ workout.type }}</span>
         <span class="bar-value">{{ workout.minutes }} min</span>
       </div>
+      </canvas>
     </div>
   `,
   styles: [`

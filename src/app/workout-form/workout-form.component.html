@@ -2,14 +2,17 @@
 <form (ngSubmit)="addWorkout()" class="mb-8">
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4 ">
     <div>
-      <label for="name" class="block text-sm font-medium text-gray-700">User Name</label>
-      <input type="text" id="name" name="name" [(ngModel)]="name" required
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      <label for="name" class="block text-sm font-sans font-medium text-gray-700">User Name</label>
+      <!-- <input type="text" id="name" name="name" [(ngModel)]="name" required
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"> -->
+        <input type="text" id="name" name="name" placeholder="Add name" [(ngModel)]="name" required
+    class="rounded-md p-1 border-b-2 border-gray-500 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+
     </div>
     <div>
-      <label for="workoutType" class="block text-sm font-medium text-gray-700">Workout Type</label>
+      <label for="workoutType" class="block font-sans text-sm font-medium text-gray-700">Workout Type</label>
       <select id="workoutType" name="workoutType" [(ngModel)]="workoutType" required
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        class="mt-1 block w-full p-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
         <option value="">Select a workout type</option>
         <option value="Running">Running</option>
         <option value="Cycling">Cycling</option>
@@ -18,9 +21,9 @@
       </select>
     </div>
     <div>
-      <label for="minutes" class="block text-sm font-medium text-gray-700">Workout Minutes</label>
+      <label for="minutes" class="block font-sans text-sm font-medium text-gray-700">Workout Minutes</label>
       <input type="number" id="minutes" name="minutes" [(ngModel)]="minutes" required min="1"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        class="mt-1 p-1  border-b-2 border-gray-500 block w-fullrounded-md shadow-sm focus:ring focus:ring-opacity-50">
     </div>
     <div class="flex items-end">
       <button type="submit"

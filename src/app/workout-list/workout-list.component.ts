@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
 import { WorkoutService, User } from '../workout.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,9 @@ export class WorkoutListComponent implements OnInit{
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
 
 
-  constructor(private workoutService: WorkoutService) {}
+  constructor(private workoutService: WorkoutService , private cdr: ChangeDetectorRef) {
+    
+  }
 
   ngOnInit() {
     this.workoutService.getUsers().subscribe(users => {
@@ -109,11 +111,15 @@ export class WorkoutListComponent implements OnInit{
   selectUser(user: User) {
     this.selectedUser = this.selectedUser === user ? null : user;
     if (this.selectedUser) {
-      this.createChart();
+      setTimeout(() => {
+        this.createChart();
+      });
+      // this.createChart();
     } else if (this.chart) {
       this.chart.destroy();
       this.chart = null;
     }
+    this.cdr.detectChanges();
   }
 
   createChart() {

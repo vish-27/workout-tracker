@@ -1,4 +1,4 @@
-<div class="shadow-lg shadow-2xl-500/60">
+<div class=" shadow-xl p-7 rounded-lg my-6">
 
 <div class="mb-4 flex flex-col md:flex-row md:items-center md:justify-between">
   <div class="mb-2 md:mb-0">
@@ -7,14 +7,14 @@
       [(ngModel)]="searchTerm"
       (ngModelChange)="applyFilters()"
       placeholder="Search by name"
-      class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      class="rounded-md p-1 border-b-2 border-gray-500 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
     />
   </div>
   <div>
     <select
       [(ngModel)]="filterType"
       (ngModelChange)="applyFilters()"
-      class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      class="rounded-md p-1.5 w-40 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
     >
       <option value="All">All Workout Types</option>
       <option value="Running">Running</option>
@@ -52,10 +52,10 @@
   </thead>
   <tbody class="bg-white divide-y divide-gray-200">
     <tr *ngFor="let user of paginatedUsers" (click)="selectUser(user)">
-      <td class="px-6 py-4 whitespace-nowrap">{{ user.name }}</td>
-      <td class="px-6 py-4 whitespace-nowrap">{{ getWorkoutTypes(user) }}</td>
-      <td class="px-6 py-4 whitespace-nowrap">{{ user.workouts.length }}</td>
-      <td class="px-6 py-4 whitespace-nowrap">
+      <td class="px-6 py-4 whitespace-nowrap cursor-pointer">{{ user.name }}</td>
+      <td class="px-6 py-4 whitespace-nowrap cursor-pointer">{{ getWorkoutTypes(user) }}</td>
+      <td class="px-6 py-4 whitespace-nowrap cursor-pointer">{{ user.workouts.length }}</td>
+      <td class="px-6 py-4 whitespace-nowrap cursor-pointer">
         {{ getTotalWorkoutMinutes(user) }}
       </td>
     </tr>
@@ -110,7 +110,7 @@
     <select
       [(ngModel)]="itemsPerPage"
       (ngModelChange)="currentPage = 1"
-      class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      class="rounded-md p-1 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
     >
       <option [ngValue]="5">5 per page</option>
       <option [ngValue]="10">10 per page</option>
