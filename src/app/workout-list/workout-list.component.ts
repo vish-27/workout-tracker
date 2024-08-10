@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { WorkoutService, User } from '../workout.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { WorkoutChartComponent } from '../workout-chart/workout-chart.component';
+import { Chart, registerables } from 'chart.js';
+
+
+Chart.register(...registerables);
+
+
 
 @Component({
   selector: 'app-workout-list',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, WorkoutChartComponent],
   templateUrl: './workout-list.component.html',
   styleUrl: './workout-list.component.css'
 })
@@ -17,6 +24,12 @@ export class WorkoutListComponent implements OnInit{
   filterType: string = 'All';
   currentPage: number = 1;
   itemsPerPage: number = 5;
+
+  selectedUser: User | null = null;
+  chart: Chart | null = null;
+
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef;
+
 
   constructor(private workoutService: WorkoutService) {}
 
@@ -32,6 +45,7 @@ export class WorkoutListComponent implements OnInit{
       user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
       (this.filterType === 'All' || user.workouts.some(w => w.type === this.filterType))
     );
+    this.currentPage = 1;
   }
 
   getTotalWorkoutMinutes(user: User): number {
@@ -50,4 +64,104 @@ export class WorkoutListComponent implements OnInit{
   get totalPages() {
     return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
   }
+
+  getPages(): number[] {
+    const pageCount = this.totalPages;
+    const currentPage = this.currentPage;
+    const pages: number[] = [];
+
+    if (pageCount <= 7) {
+      for (let i = 1; i <= pageCount; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) {
+          pages.push(i);
+        }
+        pages.push(-1); // Represents ellipsis
+        pages.push(pageCount);
+      } else if (currentPage >= pageCount - 3) {
+        pages.push(1);
+        pages.push(-1);
+        for (let i = pageCount - 4; i <= pageCount; i++) {
+          pages.push(i);
+        }
+      } else {
+        pages.push(1);
+        pages.push(-1);
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          pages.push(i);
+        }
+        pages.push(-1);
+        pages.push(pageCount);
+      }
+    }
+
+    return pages;
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+  selectUser(user: User) {
+    this.selectedUser = this.selectedUser === user ? null : user;
+    if (this.selectedUser) {
+      this.createChart();
+    } else if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
+  }
+
+  createChart() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    const ctx = this.chartCanvas.nativeElement.getContext('2d');
+    const workoutTypes = this.selectedUser!.workouts.map(w => w.type);
+    const workoutMinutes = this.selectedUser!.workouts.map(w => w.minutes);
+
+    this.chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: workoutTypes,
+        datasets: [{
+          label: 'Workout Minutes',
+          data: workoutMinutes,
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Minutes'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Workout Type'
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: `${this.selectedUser!.name}'s Workout Progress`
+          }
+        }
+      }
+    });
+  }
+
 }
