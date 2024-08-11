@@ -4,10 +4,19 @@ This project allows user to track workout duration in the forms of tables and ch
 
 ## Assignment's solution details
 
--> Framework - Angular 18.1.4
--> It's a SPA that takes inputs like name, workout type and duration (in Minutes). The user details are showing in the form of tables
--> When clicking on any user we can see the progress chart for that user.
--> It also have a feature of searching by name and filter for workout type.
+-> Framework - Angular 18.1.4 <br />
+-> It's a SPA that takes inputs like name, workout type and duration (in Minutes). The user details are showing in the form of tables. <br />
+-> When clicking on any user we can see the progress chart for that user. <br />
+-> It also have a feature of searching by name and filter for workout type. <br />
+
+## Hosting details
+
+Hosted on Github pages - https://vish-27.github.io/workout-tracker/
+
+## Bonus Feature
+
+Added chart using chart.js package. <br />
+When clicking on any user this feature displayes charts of that user and the duration of workout.
 
 ## Test Coverage
 
@@ -15,10 +24,8 @@ This project includes unit tests for one component and one service with 100% cod
 
 ### Coverage Summary
 
-| File                        | Statements | Branches | Functions | Lines |
-|-----------------------------|------------|----------|-----------|-------|
-| `src/app/workout-form`      | 100%       | 100%     | 100%      | 100%  |
-| `src/app/workout.service`   | 100%       | 100%     | 100%      | 100%  |
+![Code Coverage Report](public/service.png) <br />
+![Code Coverage Report](public/workout-form.png) <br />
 
 You can view the full code coverage report by running the following command and opening the `index.html` file located in the `coverage/` directory:
 ```bash
