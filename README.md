@@ -1,6 +1,6 @@
 # Workout Tracker
 
-This project allows user to track workout duration in the forms of tables and charts. This project is built using Angular 18.1.4.
+This application allows user to track workout duration in the forms of tables and charts. This project is built using Angular 18.1.4.
 
 ## Assignment's solution details
 
@@ -28,8 +28,10 @@ This project includes unit tests for one component and one service with 100% cod
 ![Code Coverage Report](public/workout-form.png) <br />
 
 You can view the full code coverage report by running the following command and opening the `index.html` file located in the `coverage/` directory:
+
 ```bash
 ng test --code-coverage
+```
 
 ## Development server
 
