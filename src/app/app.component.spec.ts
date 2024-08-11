@@ -24,6 +24,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, fyle-assess');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Workout Tracker');
   });
 });

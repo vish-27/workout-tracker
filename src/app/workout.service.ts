@@ -18,6 +18,10 @@ export interface Workout {
   minutes: number;
 }
 
+export interface User {
+  name: string;
+  workouts: Workout[];
+}
 
 @Injectable({
   providedIn: 'root'
